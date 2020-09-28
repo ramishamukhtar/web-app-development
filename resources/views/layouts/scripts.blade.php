@@ -4,7 +4,12 @@
 <script src="{{asset('js/front/custom.js')}}"></script>
 <!--DNE-->
 <script src="{{asset('js/public.js')}}"></script>
+<script src="{{asset('js/front/bootstrap-notify.min.js')}}"></script>
 <script src="{{asset('js/ycommon.js')}}"></script>
+<script>
+   new WOW().init();
+</script> 
+
 <script type="text/javascript">
 (function($){
   $.fn.visible = function(partial){

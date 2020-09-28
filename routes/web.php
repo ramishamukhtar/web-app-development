@@ -1,6 +1,24 @@
 <?php
 Route::get('/', 'IndexController@index')->name('home');
+/* testimonial view file */
+Route::get('/testimonial', 'IndexController@testimonial')->name('testimonial');
+
+/* blog view file */
+Route::get('/blog/{categoryId?}', 'IndexController@blog')->name('blog');
+
+/* blog-details view file */
+Route::get('/blog-detail/{id}', 'IndexController@blogdetail')->name('blogdetail');
+
+/* submit comments on blog details */
+Route::post('/blog-comment-submit/{blogId}', 'IndexController@submitBlogComment')->name('commentSubmit');
+
+/* aboutus view file */
+Route::get('/about-us', 'IndexController@aboutus')->name('aboutus');
+
+/* contactus view file */
 Route::get('/contact-us', 'IndexController@contactus')->name('contactus');
+
+/* submit inquiry on contactus */
 Route::post('/contact-us-submit', 'IndexController@contactusSubmit')->name('contactusSubmit');
 
 Auth::routes();

@@ -45,11 +45,13 @@ in columns which are being shown by the join and not the part of ,
             column:'inquiries_name',
             name:'First Name',
             type:'text',
-        },{
+        }
+        ,{
             column:'inquiries_lname',
             name:'Last Name',
             type:'text',
-        },{
+        }
+        ,{
             column:'inquiries_phone',
             name:'Phone',
             type:'text',
@@ -57,6 +59,11 @@ in columns which are being shown by the join and not the part of ,
         ,{
             column:'inquiries_email',
             name:'Email',
+            type:'text',
+        }
+        ,{
+            column:'extra_content',
+            name:'Message',
             type:'text',
         }
         // ,{

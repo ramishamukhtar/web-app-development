@@ -24,6 +24,10 @@
                         <li><a target="_blank" href="{{route('home')}}"><i class="zmdi zmdi-globe"></i> Visit Website</a></li>
                         <li class="{{Route::currentRouteName()=='adminiy.config'?'navigation__active':''}}"><a href="{{route('adminiy.config')}}"><i class="zmdi zmdi-settings zmdi-hc-fw"></i> Config</a></li>
                         <li class="{{isset($inquiry_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/inquiry-listing#type=1')}}"><i class="zmdi zmdi-plus zmdi-hc-fw"></i> Contact Inquiry</a></li>
+                        <li class="{{isset($blogs_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/blogs-listing')}}"><i class="zmdi zmdi-plus zmdi-hc-fw"></i>Blogs Listing</a></li>
+                        <li class="{{isset($comments_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/comments-listing')}}"><i class="zmdi zmdi-plus zmdi-hc-fw"></i>Comments Listing</a></li>
+                        <li class="{{isset($blog_tags_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/blog_tags-listing')}}"><i class="zmdi zmdi-plus zmdi-hc-fw"></i>Blog Tags Listing</a></li>
+                        <li class="{{isset($testimonials_ytmenu)?'navigation__active':''}}"><a href="{{url('adminiy/listing/testimonials-listing')}}"><i class="zmdi zmdi-plus zmdi-hc-fw"></i>Testimonials Listing</a></li>
                         <!--Example for sub menus -->
                         <!--product management-->
                         <!-- <?php 
@@ -48,7 +52,7 @@
                         <li class="navigation__sub {{in_array($currentMenu,$underMenuActive)?'navigation__sub--active navigation__sub--toggled flag_here':''}}">
                             <a href="javascript:void(0)"><i class="zmdi zmdi-collection-item"></i><span data-toggle="tooltip" title="in Adminiy {{$v}} we manage dropdowns,autocomplets etc from the menus under Manage Flags">Manage Flags</span></a>
                             <ul>
-                                <li class="TESTFLAG_flag"><a href="{{url('adminiy/listing/m_flag-listing#flag_type=TESTFLAG')}}">TEST FLAG</a></li>
+                                <li class="BLOGCATEGORY_flag"><a href="{{url('adminiy/listing/m_flag-listing#flag_type=BLOGCATEGORY')}}">BLOGCATEGORY FLAG</a></li>
                             </ul>
                         </li>
                     </ul>

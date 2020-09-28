@@ -47,8 +47,8 @@ total_filters.and.push({
 });
 /*Setting up menus and headings*/
 var heading = '';
-if(default_type=='TESTFLAG'){
-    heading = 'Test Flag';
+if(default_type=='BLOGCATEGORY'){
+    heading = 'Blog Category Flag';
 }
 document.querySelector('title').innerHTML = heading+' Listing';
 document.getElementsByClassName('card-title')[0].children[0].innerText=heading;

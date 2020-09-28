@@ -46,6 +46,51 @@
 <div class="card-demo card-redirect column size-1of2">
 <div class="card bg-green card--inverse">
 <div class="card-body">
+<h4 class="card-title">Home Banner <kbd>1920x1077</kbd></h4>
+<div class="actions">
+    <a href="{{url('/adminiy/listing/imagetable-listing#table_name=inner_banner&ref_id=0&type=1')}}" class="actions__item zmdi zmdi-image-o zmdi-hc-fw"></a>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="card-demo card-redirect column size-1of2">
+<div class="card bg-green card--inverse">
+<div class="card-body">
+<h4 class="card-title">About Banner <kbd>1920x456</kbd></h4>
+<div class="actions">
+    <a href="{{url('/adminiy/listing/imagetable-listing#table_name=inner_banner&ref_id=0&type=2')}}" class="actions__item zmdi zmdi-image-o zmdi-hc-fw"></a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card-demo card-redirect column size-1of2">
+<div class="card bg-green card--inverse">
+<div class="card-body">
+<h4 class="card-title">Portfolio Images<kbd>430x570</kbd></h4>
+<div class="actions">
+    <a href="{{url('/adminiy/listing/imagetable-listing#table_name=portfolio&ref_id=12&type=2')}}" class="actions__item zmdi zmdi-image-o zmdi-hc-fw"></a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card-demo card-redirect column size-1of2">
+<div class="card bg-green card--inverse">
+<div class="card-body">
+<h4 class="card-title">Footer Logos<kbd>169x169</kbd></h4>
+<div class="actions">
+    <a href="{{url('adminiy/listing/imagetable-listing#table_name=footer_logos&ref_id=12&type=2')}}" class="actions__item zmdi zmdi-image-o zmdi-hc-fw"></a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card-demo card-redirect column size-1of2">
+<div class="card bg-green card--inverse">
+<div class="card-body">
 <h4 class="card-title">Contact Inquiries</h4>
 <div class="actions">
 	<a href="{{url('/adminiy/listing/inquiry-listing#type=1')}}" class="actions__item zmdi zmdi-pin-help zmdi-hc-fw"></a>

@@ -2,11 +2,13 @@
 namespace App\Http\Controllers;
 use Helper;
 use View;
+use DB;
 use Illuminate\Support\Str;
 use App\Http\Requests\yTableinquiryRequest;
-use App\Http\Requests\yTablecareerRequest;
+use App\Http\Requests\yTablecommentsRequest;
 use App\Model\inquiry;
-use App\Model\m_flag;
+use App\Model\comments;
+use App\Model\blogs;
 
 class IndexController extends Controller
 {
@@ -19,22 +21,68 @@ class IndexController extends Controller
     }
     public function index()
     {
-        $m_flag = m_flag::find(1965);
-        dd($m_flag->m_flag_main,$m_flag->m_flag_thumb);
-        // $banners = Helper::fireQuery("select banner_management.*
-        //     ,img_1.img_path as img_1_img
-        //     ,img_2.img_path as img_2_img from banner_management 
-        //     left join imagetable as img_1 on img_1.ref_id = banner_management.id and img_1.type=1 and img_1.table_name='banner_management'
-        //     left join imagetable as img_2 on img_2.ref_id = banner_management.id and img_2.type=1 and img_2.table_name='banner_management_thumb'
-        //     where banner_management.is_active=1 and banner_management.is_deleted=0");
-        // $deals = Helper::getImageWithData('products','id','',"is_active=1 and is_deleted=0 and product_type='deals'",0,'order by id asc');
-        return view('welcome')->with('title',Helper::returnFlag(123))
-        ->with('homeMenu',true);
-        //->with(compact('banners','deals'))
+        $portfolio_images = Helper::returnDataSet('imagetable', "table_name='portfolio' and ref_id=12 and type=2");
+        $featured_blog = Helper::returnModFeatured('blogs')->with('image')->get();
+        $testimonialData = Helper::returnMod('testimonials')->with('image')->get();
+        $homeBanner=Helper::getimageoftable('inner_banner', 1,null);
+        return view('index')->with('title','Welcome')->with(compact('portfolio_images', 'featured_blog', 'testimonialData','homeBanner'))->with('menu',true);
+    }
+    public function testimonial()
+    {
+        $pageBanner=Helper::getimageoftable('inner_banner', 2,null);
+        $portfolio_images = Helper::returnDataSet('imagetable', "table_name='portfolio' and ref_id=12 and type=2");
+        $testimonialData = Helper::returnMod('testimonials')->with('image')->with('image_optional')->paginate(4);
+        
+        return view('testimonial')->with('title','Testimonial')->with(compact('portfolio_images', 'testimonialData', 'pageBanner'))->with('testimonialmenu',true);
+    }
+    public function blog($categoryId=null){
+        $pageBanner=Helper::getimageoftable('inner_banner', 2,null);
+        if(isset($_GET['search'])){
+            $name = $_GET['search'];
+            $blogData=blogs::where('blog_title','LIKE','%'.$name.'%')->with('image')->paginate(4);
+        }
+        else{
+            if($categoryId != null){
+                $blogData=blogs::where('blog_category_id',$categoryId)->with('image')->paginate(4);
+            }
+            else{
+                $blogData=Helper::returnMod('blogs')->with('image')->paginate(4);
+            }
+        }
+        $categories = Helper::returnDataSet('m_flag', "flag_type='BLOGCATEGORY'");
+        $blogNews = Helper::returnModWithOrderBy('blogs', 'id','desc', 3)->with('image')->get();
+        return view('blogs')->with('title','Blog')->with(compact('blogData', 'categories', 'blogNews','pageBanner'))->with('blogmenu',true);
+    }
+    public function blogdetail($id)
+    {
+        $pageBanner=Helper::getimageoftable('inner_banner', 2,null);
+        $blogData = Helper::getImageWithRow('blogs','id',$id);
+        $categories = Helper::returnDataSet('m_flag', "flag_type='BLOGCATEGORY'");
+        $blogNews = Helper::returnModWithOrderBy('blogs', 'id','desc', 3)->with('image')->get();
+        $commentsOnBlog = Helper::getImageWithData('comments','id',"blog_id=".$id);
+        $tags = Helper::returnMod('blog_tags')->where('blog_id', $id)->get();
+        return view('blog-details')->with('title','Blog Details')->with(compact('blogData','blogNews', 'categories', 'commentsOnBlog','pageBanner', 'tags'))->with('blogmenu',true);
+    }
+    public function submitBlogComment(yTablecommentsRequest $request,$blogId){
+        $validator = $request->validated();
+        $comment = new comments();
+        $comment->blog_id = $blogId;
+        $comment->name = $request->name;
+        $comment->email = $request->email;
+        $comment->comment = $request->message;
+        $comment->save();
+        $this->echoSuccess("Your Reply is Submitted!");
+    }
+    public function aboutus()
+    {
+        $pageBanner=Helper::getimageoftable('inner_banner', 2,null);
+        $featured_blog = Helper::returnModFeatured('blogs')->with('image')->get();
+        return view('aboutus')->with('title','About us')->with(compact('featured_blog','pageBanner'))->with('aboutmenu',true);
     }
     public function contactus()
     {
-        return view('contactus')->with('title','Contact us')->with('contactmenu',true);
+        $pageBanner=Helper::getimageoftable('inner_banner', 2,null);
+        return view('contactus')->with('title','Contact us')->with('contactmenu',true)->with(compact('pageBanner'))->with('contactmenu',true);
     }
     public function contactusSubmit(yTableinquiryRequest $request){
         $validator = $request->validated();

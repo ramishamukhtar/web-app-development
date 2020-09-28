@@ -242,7 +242,7 @@ public static function getPaginator($pageLimit=20){
       $query = "SELECT ".$table.".*,imagetable.img_path,imagetable.id as img_id from ".$table." left join imagetable on imagetable.ref_id = ".$table.".id and imagetable.table_name = '".$table."' and imagetable.type = '1' where ".$table.".".$col." = '".$id."'".$add;
        return self::firstRow($query);
   }
-  public static function getImageWithData($table,$col,$id,$where='',$chunked=0,$extra=''){
+  public static function getImageWithData($table,$col,$where='',$chunked=0,$extra=''){
       $add = '';
       if($where!=''){
         $add = ' where '.$where;
@@ -301,6 +301,13 @@ public static function getPaginator($pageLimit=20){
         }
         return $data;
     }
+   /* public static function returnDataSetOrderBy($table,$col, $orderby, $limit,$chunked=0){
+        $data = DB::select("SELECT * FROM ".$table." ORDER BY ".$col." ".$orderby." LIMIT ".$limit."");
+        if($chunked>0){
+          return array_chunk($data,$chunked);
+        }
+        return $data;
+    }*/
     public static function isThispw($pw){
       if(self::checkforSpecials($pw)){
         if(strlen($pw)>=8){
@@ -635,6 +642,18 @@ public static function getPaginator($pageLimit=20){
   public static function returnMod($modelname){
     $model_name = 'App\Model\\'.$modelname;
     return $model_name::where('is_active',1)->where('is_deleted',0);
+  }
+  public static function returnModWithOrderBy($modelname, $col, $orderby, $limit){
+    $model_name = 'App\Model\\'.$modelname;
+    return $model_name::where('is_active',1)->where('is_deleted',0)->orderBy($col,$orderby)->limit($limit);
+  }
+  public static function returnModFeatured($modelname){
+    $model_name = 'App\Model\\'.$modelname;
+    return $model_name::where('is_active',1)->where('is_deleted',0)->where('is_featured',1);
+  }
+  public static function returnImageModel($modelname){
+    $model_name = 'App\Model\\'.$modelname;
+    return $model_name::where('is_active_img',1);
   }
   // public static function getImageWithRowDC($table,$col,$id,$where=''){
   //     $add = '';
